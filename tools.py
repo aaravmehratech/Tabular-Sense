@@ -1,10 +1,13 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')  # Forces web-safe plotting without popup warnings
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
 import time
 from datetime import datetime
+import streamlit as st
 
 MEMORY_FILE = "memory_store.json"
 
@@ -39,10 +42,12 @@ def data_cleaner(column_name: str, strategy: str) -> str:
         return f"Error: Column '{column_name}' not found."
     
     if strategy == 'drop':
+        # V1 logic restored
         global_df.dropna(subset=[column_name], inplace=True)
         return f"Cleaned: Dropped all missing rows in '{column_name}'."
     else:
         mean_val = global_df[column_name].mean()
+        # V1 logic restored
         global_df[column_name].fillna(mean_val, inplace=True)
         return f"Cleaned: Filled missing values in '{column_name}' with {mean_val:.2f}."
 
@@ -95,6 +100,7 @@ def chart_generator(x_col: str, y_col: str, chart_type: str) -> str:
         
     plt.figure(figsize=(8, 5))
     if chart_type == 'bar':
+        # V1 logic restored
         sns.barplot(data=global_df, x=x_col, y=y_col)
     else:
         sns.lineplot(data=global_df, x=x_col, y=y_col)
@@ -106,6 +112,9 @@ def chart_generator(x_col: str, y_col: str, chart_type: str) -> str:
     plt.close()
     
     latest_chart = filepath
+    # Pushes image to Streamlit memory for instant rendering
+    st.session_state['latest_chart'] = filepath
+    
     return f"Chart saved to {filepath}"
 
 # ==========================================
