@@ -32,7 +32,7 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
+API_KEY = st.secrets["AARAV_API"]
 genai.configure(api_key=API_KEY)
 
 my_tools = [
