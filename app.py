@@ -5,9 +5,6 @@ import os
 import google.generativeai as genai
 import tools 
 
-# ==========================================
-# PAGE SETUP & F1 CSS
-# ==========================================
 st.set_page_config(page_title="TabulaSense AI", page_icon="📊", layout="wide")
 
 st.markdown("""
@@ -36,10 +33,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# SETUP GEMINI API & AGENT
-# ==========================================
-API_KEY = st.secrets["AARAV_API"]
 genai.configure(api_key=API_KEY)
 
 my_tools = [
@@ -54,9 +47,6 @@ model = genai.GenerativeModel(
     system_instruction="You are TabulaSense, an expert data analyst. You have tools to profile data, clean it, execute pandas code, find outliers, plot charts, and save/retrieve user preferences from memory. Always check memory before applying logic. When rendering a chart, tell the user you have created it."
 )
 
-# ==========================================
-# UI SIDEBAR: WORKSPACE & MEMORY
-# ==========================================
 with st.sidebar:
     st.header("⚙️ TabulaSense OS")
     st.caption("Aarav Mehra, MAIT")
@@ -94,9 +84,6 @@ with st.sidebar:
     else:
         st.info("Memory is empty.")
 
-# ==========================================
-# MAIN CHAT INTERFACE
-# ==========================================
 st.title("TabulaSense: Agentic Data Analyst")
 
 with st.expander("🛠️ View Agent Capabilities (Functions)"):
@@ -137,13 +124,13 @@ if uploaded_file:
 
         with st.chat_message("assistant", avatar=agent_icon):
             try:
-                # The status box only handles the loading animation now
+              
                 with st.status(f"**{agent_name}** is analyzing request...", expanded=True) as status:
                     st.write("Interpreting intent and executing background functions...")
                     response = st.session_state.chat.send_message(user_input)
                     status.update(label=f"Task completed by {agent_name}!", state="complete", expanded=False)
                 
-                # Output renders fully OUTSIDE the dropdown box
+              
                 try:
                     final_text = response.text
                 except ValueError:
