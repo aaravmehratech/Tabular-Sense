@@ -5,7 +5,7 @@ import os
 import google.generativeai as genai
 import tools 
 
-st.set_page_config(page_title="TabulaSense AI", page_icon="📊", layout="wide")
+st.set_page_config(page_title="TabularSense AI", page_icon="📊", layout="wide")
 
 st.markdown("""
     <style>
@@ -44,11 +44,11 @@ my_tools = [
 model = genai.GenerativeModel(
     model_name='gemini-3.5-flash-lite', 
     tools=my_tools,
-    system_instruction="You are TabulaSense, an expert data analyst. You have tools to profile data, clean it, execute pandas code, find outliers, plot charts, and save/retrieve user preferences from memory. Always check memory before applying logic. When rendering a chart, tell the user you have created it."
+    system_instruction="You are TabularSense, an expert data analyst. You have tools to profile data, clean it, execute pandas code, find outliers, plot charts, and save/retrieve user preferences from memory. Always check memory before applying logic. When rendering a chart, tell the user you have created it."
 )
 
 with st.sidebar:
-    st.header("⚙️ TabulaSense OS")
+    st.header("⚙️ TabularSense OS")
     st.caption("Aarav Mehra, MAIT")
     st.divider()
     
@@ -84,7 +84,7 @@ with st.sidebar:
     else:
         st.info("Memory is empty.")
 
-st.title("TabulaSense: Agentic Data Analyst")
+st.title("TabularSense: Agentic Data Analyst")
 
 with st.expander("🛠️ View Agent Capabilities (Functions)"):
     st.markdown("""
